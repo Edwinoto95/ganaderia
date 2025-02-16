@@ -62,7 +62,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
 
         .hero-title {
@@ -347,7 +347,7 @@
         <!-- Botón de descarga -->
         <div class="download-section">
             <button id="descargarPdfBtn" class="btn-download">
-                <i class="fas fa-download"></i> Descargar Reporte PDF
+                <i ></i>
             </button>
         </div>
         
@@ -377,7 +377,8 @@
                     </div>
                 </div>
             </div>
-        </div>...
+        </div>
+
         <!-- Contenido para PDF -->
         <div id="contenido-pdf">
             <!-- Tabs para los diferentes reportes -->
@@ -414,7 +415,7 @@
                                         <th>Teléfono</th>
                                         <th>Email</th>
                                         <th>Dirección</th>
-                                        <th>Total Haciendas</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -434,7 +435,7 @@
                                         <th>ID</th>
                                         <th>Nombre</th>
                                         <th>Dirección</th>
-                                        <th>Dueño</th>
+                                        
                                         
                                     </tr>
                                 </thead>
@@ -454,228 +455,255 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Nombre</th>
-                                        <th>Peso</th>
-                                        <th>Altura</th>
-                                        <th>Edad</th>
                                         <th>Raza</th>
-                                        <th>Hacienda</th>
-                                        <th>Imagen</th>
-                                        <th>Recomendación</th>
+                                        <th>Edad (años)</th>
+                                        <th>Peso (kg)</th>
+                                        <th>Altura (cm)</th>
+                                        
+                                        <th>Recomendación</th>  <!-- Nueva columna -->
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+                                    <!-- Aquí se insertarán los datos de las vacas -->
+                                </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>...
-        <div class="mt-4">
-            <a href="index.html" class="btn btn-secondary">Volver al Inicio</a>
         </div>
     </div>
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.12.0/toastify.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
-
-    <footer>
+    <footer class="bg-dark text-light py-4">
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
-                    <h4 class="footer-title">Sobre Sistema Ganadero</h4>
-                    <p class="footer-text">
-                        Sistema líder en gestión ganadera, diseñado para optimizar 
-                        y modernizar las operaciones del sector agropecuario.
-                    </p>
+                <div class="col-md-6">
+                    <h5>Acerca de Nosotros</h5>
+                    <p>Sistema integral para la gestión eficiente de su ganado. Monitoree la salud, el crecimiento y la
+                        producción de sus animales.</p>
                 </div>
-                <div class="col-md-4">
-                    <h4 class="footer-title">Enlaces Rápidos</h4>
-                    <ul class="list-unstyled footer-text">
-                        <li><a href="#" class="text-white">Inicio</a></li>
-                        <li><a href="#" class="text-white">Características</a></li>
-                        <li><a href="#" class="text-white">Soporte</a></li>
-                        <li><a href="#" class="text-white">Contacto</a></li>
+                <div class="col-md-3">
+                    <h5>Enlaces Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">Inicio</a></li>
+                        <li><a href="#" class="text-light">Propietarios</a></li>
+                        <li><a href="#" class="text-light">Haciendas</a></li>
+                        <li><a href="#" class="text-light">Ganado</a></li>
+                        <li><a href="#" class="text-light">Reportes</a></li>
                     </ul>
                 </div>
-                <div class="col-md-4">
-                    <h4 class="footer-title">Contacto</h4>
-                    <p class="footer-text">
-                        <i class="fas fa-phone me-2"></i> +123 456 7890<br>
-                        <i class="fas fa-envelope me-2"></i> info@ganasyspro.com<br>
-                        <i class="fas fa-map-marker-alt me-2"></i> Av. Principal #123
-                    </p>
+                <div class="col-md-3">
+                    <h5>Contacto</h5>
+                    <p>Email: info@sistemaganadero.com</p>
+                    <p>Teléfono: +57 300 123 4567</p>
                 </div>
             </div>
-            <div class="footer-bottom text-center">
-                <div class="social-links mb-3">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                </div>
-                <p class="mb-0">© 2025 GanaSys Pro. Todos los derechos reservados.</p>
-            </div>
+            <hr class="bg-light">
+            <p class="text-center">© 2024 Sistema Ganadero. Todos los derechos reservados.</p>
         </div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const descargarPdfBtn = document.getElementById('descargarPdfBtn');
+        document.getElementById('descargarPdfBtn').addEventListener('click', function () {
+            const element = document.getElementById('contenido-pdf');
+            html2canvas(element).then(canvas => {
+                const pdf = new jsPDF();
+                const imgData = canvas.toDataURL('image/png');
+                const imgWidth = 210;
+                const imgHeight = canvas.height * imgWidth / canvas.width;
+                pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+                pdf.save('reporte.pdf');
+            });
+        });
 
-            descargarPdfBtn.addEventListener('click', generarPDF);
+        const tablaVacasBody = document.querySelector("#tablaVacas tbody");
 
-            // Funciones existentes...
-            // Función para generar PDF
-            async function generarPDF() {
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF('p', 'mm', 'a4');
+        // Función para obtener datos de localStorage
+        function getVacasFromLocalStorage() {
+            const vacasDataString = localStorage.getItem('vacas');
+            return vacasDataString ? JSON.parse(vacasDataString) : [];
+        }
 
-                // Mostrar mensaje de carga
-                Toastify({
-                    text: "Generando PDF, por favor espere...",
-                    duration: 3000
-                }).showToast();
+        // Función para determinar la recomendación basada en el peso y la altura
+        function obtenerRecomendacion(edad, peso, altura) {
+            let recomendacion = "";
 
-                try {
-                    // Configurar estilos para mejor visualización en PDF
-                    const elementos = document.querySelectorAll('.tab-pane');
-                    for (let elem of elementos) {
-                        elem.classList.add('show', 'active');
-                    }
-
-                    // Capturar el contenido
-                    const content = document.getElementById('contenido-pdf');
-                    const canvas = await html2canvas(content, {
-                        scale: 1,
-                        useCORS: true,
-                        logging: false
-                    });
-
-                    // Restaurar estilos
-                    for (let elem of elementos) {
-                        elem.classList.remove('show', 'active');
-                    }
-                    const firstTab = document.querySelector('.tab-pane.fade');
-                    if (firstTab) {
-                        firstTab.classList.add('show', 'active');
-                    }
-
-
-                    // Agregar título
-                    doc.setFontSize(20);
-                    doc.text('Reporte del Sistema de Gestión Ganadera', 15, 15);
-
-                    // Agregar fecha
-                    doc.setFontSize(12);
-                    doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 15, 25);
-
-                    // Convertir el canvas a imagen
-                    const imgData = canvas.toDataURL('image/png');
-                    const imgProps = doc.getImageProperties(imgData);
-                    const pdfWidth = doc.internal.pageSize.getWidth() - 30;
-                    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-
-                    // Agregar la imagen al PDF
-                    doc.addImage(imgData, 'PNG', 15, 35, pdfWidth, pdfHeight);
-
-                    // Guardar PDF
-                    doc.save('reporte-sistema-ganadero.pdf');
-
-                    // Mostrar mensaje de éxito
-                    Toastify({
-                        text: "PDF generado exitosamente",
-                        duration: 3000,
-                        style: {
-                            background: "linear-gradient(to right, #00b09b, #96c93d)",
-                        }
-                    }).showToast();
-
-                } catch (error) {
-                    console.error('Error al generar PDF:', error);
-                    Toastify({
-                        text: "Error al generar PDF",
-                        duration: 3000,
-                        style: {
-                            background: "linear-gradient(to right, #ff5f6d, #ffc371)",
-                        }
-                    }).showToast();
+            //Rangos de peso y altura segun la edad
+            if (edad === 1) {
+                if (peso < 150) {
+                    recomendacion = "Peso bajo para la edad. Aumentar la ingesta de alimento nutritivo.";
+                } else if (peso > 250) {
+                    recomendacion = "Peso alto para la edad. Monitorear la dieta para evitar sobrepeso.";
+                } else if (altura < 100) {
+                    recomendacion = "Altura baja para la edad. Consultar con un veterinario sobre su desarrollo.";
+                } else if (altura > 120) {
+                    recomendacion = "Altura alta para la edad. ¡Excelente crecimiento!";
                 }
+                else {
+                    recomendacion = "Peso y altura dentro de los rangos ideales. ¡Sigue así!";
+                }
+            } else if (edad === 5) {
+                if (peso < 900) {
+                    recomendacion = "Peso bajo para la edad. Considerar un suplemento alimenticio.";
+                } else if (peso > 1100) {
+                    recomendacion = "Peso alto para la edad. Ajustar la dieta para mantener un peso saludable.";
+                } else if (altura < 145) {
+                    recomendacion = "Altura baja para la edad. Asegurar una nutrición adecuada para un buen desarrollo.";
+                } else if (altura > 155) {
+                    recomendacion = "Altura alta para la edad. ¡Muy buen desarrollo!";
+                }
+                else {
+                    recomendacion = "Peso y altura dentro de los rangos ideales. ¡Continúa con la buena alimentación!";
+                }
+            } else if (edad === 10 || edad === 15) {
+                if (peso < 1300) {
+                    recomendacion = "Peso bajo para la edad. Evaluar la calidad del alimento y su absorción.";
+                } else if (peso > 1500) {
+                    recomendacion = "Peso alto para la edad. Vigilar la dieta para prevenir problemas de salud.";
+                } else if (altura < 160) {
+                    recomendacion = "Altura baja para la edad. Verificar posibles deficiencias nutricionales.";
+                } else if (altura > 180) {
+                    recomendacion = "Altura alta para la edad. ¡Excelente conformación física!";
+                }
+                else {
+                    recomendacion = "Peso y altura dentro de los rangos ideales. ¡Mantén el buen manejo!";
+                }
+            } else if (edad === 20) {
+                if (peso < 1100) {
+                    recomendacion = "Peso bajo para la edad. Investigar posibles problemas de salud o parásitos.";
+                } else if (peso > 1300) {
+                    recomendacion = "Peso alto para la edad. Moderar la alimentación para evitar complicaciones.";
+                } else if (altura < 155) {
+                    recomendacion = "Altura baja para la edad. Observar la salud general y el bienestar del animal.";
+                } else if (altura > 170) {
+                    recomendacion = "Altura alta para la edad. ¡Animal en óptimas condiciones!";
+                }
+                else {
+                    recomendacion = "Peso y altura dentro de los rangos ideales. ¡Excelente estado general!";
+                }
+            } else if (edad === 25) {
+                if (peso < 850) {
+                    recomendacion = "Peso bajo para la edad. Revisar la eficiencia alimenticia y el estado de salud.";
+                } else if (peso > 1050) {
+                    recomendacion = "Peso alto para la edad. Controlar la dieta para asegurar una buena salud a largo plazo.";
+                } else if (altura < 146) {
+                    recomendacion = "Altura baja para la edad. Considerar factores genéticos y ambientales.";
+                } else if (altura > 160) {
+                    recomendacion = "Altura alta para la edad. ¡Animal bien desarrollado y saludable!";
+                }
+                else {
+                    recomendacion = "Peso y altura dentro de los rangos ideales. ¡Salud y bienestar garantizados!";
+                }
+            } else if (edad === 30) {
+                if (peso < 600) {
+                    recomendacion = "Peso bajo para la edad. Evaluar a fondo la salud del animal y su capacidad de asimilación de nutrientes.";
+                } else if (peso > 800) {
+                    recomendacion = "Peso alto para la edad. Ajustar la dieta para prevenir problemas metabólicos.";
+                } else if (altura < 135) {
+                    recomendacion = "Altura baja para la edad. Prestar atención a cualquier signo de enfermedad o malestar.";
+                } else if (altura > 148) {
+                    recomendacion = "Altura alta para la edad. ¡Animal fuerte y robusto!";
+                }
+                else {
+                    recomendacion = "Peso y altura dentro de los rangos ideales. ¡Excelente cuidado y manejo!";
+                }
+            } else {
+                recomendacion = "Segun el peso y la altura el animal le falta vitaminas. se recomienda dar mucha alimentacion y cuidado.";
             }
+
+            return recomendacion;
+        }
+
+        // Obtener datos de localStorage
+        const vacasData = getVacasFromLocalStorage();
+
+         // Obtener datos de localStorage para Dueños, Haciendas y Vacas y actualizar las funciones de resumen
+        function getDuenosFromLocalStorage() {
+            const duenosDataString = localStorage.getItem('duenos');
+            return duenosDataString ? JSON.parse(duenosDataString) : [];
+        }
+
+        function getHaciendasFromLocalStorage() {
+            const haciendasDataString = localStorage.getItem('haciendas');
+            return haciendasDataString ? JSON.parse(haciendasDataString) : [];
+        }
+
+        // Obtener Dueños, Haciendas y Vacas de localStorage
+        const duenosData = getDuenosFromLocalStorage();
+        const haciendasData = getHaciendasFromLocalStorage();
+        // Vacas ya se obtienen arriba
+
+        // Actualizar los totales en el resumen
+        document.getElementById('totalDuenos').textContent = duenosData.length;
+        document.getElementById('totalHaciendas').textContent = haciendasData.length;
+        document.getElementById('totalVacas').textContent = vacasData.length;
+
+        // Function to populate the "Dueños" table
+        function populateDuenosTable() {
+            const tablaDuenosBody = document.querySelector("#tablaDuenos tbody");
+            tablaDuenosBody.innerHTML = ""; // Clear existing data
+
+            duenosData.forEach(dueno => {
+                const row = `
+                    <tr>
+                        <td>${dueno.id}</td>
+                        <td>${dueno.nombre}</td>
+                        <td>${dueno.cedula}</td>
+                        <td>${dueno.telefono}</td>
+                        <td>${dueno.email}</td>
+                        <td>${dueno.direccion}</td>
+                        
+                    </tr>
+                `;
+                tablaDuenosBody.innerHTML += row;
+            });
+        }
+
+        // Function to populate the "Haciendas" table
+        function populateHaciendasTable() {
+            const tablaHaciendasBody = document.querySelector("#tablaHaciendas tbody");
+            tablaHaciendasBody.innerHTML = ""; // Clear existing data
+
+            haciendasData.forEach(hacienda => {
+                const row = `
+                    <tr>
+                        <td>${hacienda.id}</td>
+                        <td>${hacienda.nombre}</td>
+                        <td>${hacienda.direccion}</td>
+                       
+                    </tr>
+                `;
+                tablaHaciendasBody.innerHTML += row;
+            });
+        }
+
+
+        // Llenar la tabla de vacas con los datos y recomendaciones
+        tablaVacasBody.innerHTML = ""; // Clear existing data
+        vacasData.forEach(vaca => {
+            const recomendacion = obtenerRecomendacion(vaca.edad, vaca.peso, vaca.altura);
+            const row = `
+                <tr>
+                    <td>${vaca.id}</td>
+                    <td>${vaca.nombre}</td>
+                    <td>${vaca.raza}</td>
+                    <td>${vaca.edad}</td>
+                    <td>${vaca.peso}</td>
+                    <td>${vaca.altura}</td>
+                   
+                    <td>${recomendacion}</td>
+                </tr>
+            `;
+            tablaVacasBody.innerHTML += row;
         });
 
-
-        document.addEventListener('DOMContentLoaded', function () {
-            // Obtener datos del localStorage
-            const duenos = JSON.parse(localStorage.getItem('duenos')) || [];
-            const haciendas = JSON.parse(localStorage.getItem('haciendas')) || [];
-            const vacas = JSON.parse(localStorage.getItem('vacas')) || [];
-
-            // Actualizar contadores
-            document.getElementById('totalDuenos').textContent = duenos.length;
-            document.getElementById('totalHaciendas').textContent = haciendas.length;
-            document.getElementById('totalVacas').textContent = vacas.length;
-
-            // Inicializar DataTables
-            const tablaDuenos = $('#tablaDuenos').DataTable({
-                language: {
-                    url: 'https://cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
-                },
-                data: duenos,
-                columns: [
-                    { data: 'id', defaultContent: '' },
-                    { data: 'nombre', defaultContent: '' },
-                    { data: 'cedula', defaultContent: '' },
-                    { data: 'telefono', defaultContent: '' },
-                    { data: 'email', defaultContent: '' },
-                    { data: 'direccion', defaultContent: '' },
-                    { data: 'totalHaciendas', defaultContent: '' }
-                ]
-            });
-
-            const tablaHaciendas = $('#tablaHaciendas').DataTable({
-                language: {
-                    url: 'https://cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
-                },
-                data: haciendas,
-                columns: [
-                    { data: 'id', defaultContent: '' },
-                    { data: 'nombre', defaultContent: '' },
-                    { data: 'direccion', defaultContent: '' },
-                    { data: 'duenoNombre', defaultContent: '' },
-                    
-                ]
-            });
-
-            const tablaVacas = $('#tablaVacas').DataTable({
-                language: {
-                    url: 'https://cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
-                },
-                data: vacas,
-                columns: [
-                    { data: 'id', defaultContent: '' },
-                    { data: 'nombre', defaultContent: '' },
-                    { data: 'peso', defaultContent: '' },
-                    { data: 'altura', defaultContent: '' },
-                    { data: 'edad', defaultContent: '' },
-                    { data: 'raza', defaultContent: '' },
-                    { data: 'hacienda', defaultContent: '' },
-                    { data: 'imagen',
-                      render: function(data, type, row) {
-                        return '<img src="' + data + '" alt="Vaca Image" style="width:50px;height:50px;">';
-                      }
-                    },
-                    { data: 'recomendacion', defaultContent: '' }
-                ]
-            });
-        });
+        // Call the functions to populate the tables
+        populateDuenosTable();
+        populateHaciendasTable();
     </script>
 </body>
-
 </html>
