@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión Ganadera</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2b5a30;    /* Verde oscuro - Representa naturaleza y crecimiento */
+            --secondary-color: #8b4513;   /* Marrón - Representa tierra y estabilidad */
+            --accent-color: #f0a500;      /* Dorado - Representa calidad y prestigio */
+            --background-color: #f5f3e9;  /* Beige claro - Representa naturaleza y limpieza */
+            --text-color: #333333;        /* Gris oscuro - Mejor legibilidad */
+            --success-color: #568c63;     /* Verde medio - Éxito y progreso */
+            --danger-color: #a44141;      /* Rojo tierra - Alertas y errores */
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .navbar {
+            background-color: var(--primary-color);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: 600;
+            font-size: 1.4rem;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.9) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color) !important;
+            transform: translateY(-2px);
+        }
+
+        .hero-section {
+            background: linear-gradient(rgba(43, 90, 48, 0.9), rgba(43, 90, 48, 0.9)),
+                        url('/api/placeholder/1920/1080') center/cover;
+            padding: 8rem 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero-text {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            height: 100%;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary-color);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+        }
+
+        .feature-title {
+            color: var(--text-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .feature-text {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .action-button {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(240, 165, 0, 0.3);
+        }
+
+        .action-button:hover {
+            background-color: #d89400;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(240, 165, 0, 0.4);
+        }
+
+        .logout-btn {
+            background-color: transparent;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: rgba(255,255,255,0.1);
+            border-color: white;
+        }
+
+        .stats-section {
+            background-color: white;
+            padding: 4rem 0;
+            margin: 4rem 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .testimonials-section {
+            padding: 4rem 0;
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .testimonial-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 1rem;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-title {
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-text {
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+        }
+
+        .social-links a {
+            color: white;
+            margin: 0 1rem;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            opacity: 0.8;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+            opacity: 1;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 3rem;
+            padding-top: 2rem;
+        }
+
+        /* Nuevos elementos añadidos */
+        .quick-action-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .quick-action-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .benefits-section {
+            padding: 4rem 0;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .benefit-icon {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-right: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-cow me-2"></i>
+                Sistema Ganadero 
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home me-1"></i> Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Registro_Dueno.html">
+                            <i class="fas fa-user me-1"></i> Propietarios
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Registro_Hacienda.html">
+                            <i class="fas fa-farm me-1"></i> Haciendas
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Registro_Vaca.html">
+                            <i class="fas fa-cow me-1"></i> Ganado
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Reportes.html">
+                            <i class="fas fa-chart-line me-1"></i> Reportes
+                        </a>
+                    </li>
+                    <form action="/logout" method="POST">
+                        
+                        <button type="submit" class="logout-btn"
+                            style="background-color: red; color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px; transition: background-color 0.3s ease;">Cerrar
+                            sesión</button>
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Registro de Dueño</h1>
+        <div class="card">
+            <div class="card-body">
+                <form id="formDueno">
+                    <div class="mb-3">
+                        <label for="nombreCompleto" class="form-label">Nombre Completo</label>
+                        <input type="text" class="form-control" id="nombreCompleto" name="nombreCompleto">
+                    </div>
+                    <div class="mb-3">
+                        <label for="cedula" class="form-label">Número de Cédula</label>
+                        <input type="text" class="form-control" id="cedula" name="cedula">
+                    </div>
+                    <div class="mb-3">
+                        <label for="telefono" class="form-label">Teléfono</label>
+                        <input type="tel" class="form-control" id="telefono" name="telefono">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Correo Electrónico</label>
+                        <input type="email" class="form-control" id="email" name="email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="direccion" class="form-label">Dirección</label>
+                        <textarea class="form-control" id="direccion" name="direccion"></textarea>
+                    </div>
+                     
+                    <input type="hidden" id="idDueno">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" id="btnCancelar" class="btn btn-warning" style="display:none;">Cancelar</button>
+                    <a href="Inicio.html" class="btn btn-secondary">Volver</a>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-body">
+                <h3>Dueños Registrados</h3>
+                <table id="tablaDuenos" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Cédula</th>
+                            <th>Teléfono</th>
+                            <th>Email</th>
+                            <th>Dirección</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/additional-methods.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.12.0/toastify.js"></script>
+
+
+
+
+
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h4 class="footer-title">Sobre Sistema Ganadero</h4>
+                    <p class="footer-text">
+                        Sistema líder en gestión ganadera, diseñado para optimizar 
+                        y modernizar las operaciones del sector agropecuario.
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <h4 class="footer-title">Enlaces Rápidos</h4>
+                    <ul class="list-unstyled footer-text">
+                        <li><a href="#" class="text-white">Inicio</a></li>
+                        <li><a href="#" class="text-white">Características</a></li>
+                        <li><a href="#" class="text-white">Soporte</a></li>
+                        <li><a href="#" class="text-white">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4 class="footer-title">Contacto</h4>
+                    <p class="footer-text">
+                        <i class="fas fa-phone me-2"></i> +123 456 7890<br>
+                        <i class="fas fa-envelope me-2"></i> info@ganasyspro.com<br>
+                        <i class="fas fa-map-marker-alt me-2"></i> Av. Principal #123
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom text-center">
+                <div class="social-links mb-3">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <p class="mb-0">© 2025 GanaSys Pro. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        // Custom Validation Methods (Pasted from paste.txt)
+        $.validator.addMethod("letras", function(value, element) {
+		  //return this.optional(element) || /^[a-z]+$/i.test(value);
+		  return this.optional(element) || /^[A-Za-zÃ Ã‰Ã Ã‘Ã“ÃšÃ¡Ã© Ã­Ã±Ã³]*$/.test(value);
+
+		}, "Este campo solo acepta letras");
+
+
+		jQuery.validator.addMethod("ultimoJueves", function(value, element) {
+		var partes=value.split(" ")
+        var fecha=new Date(partes[0]);
+
+        var dia=fecha.getDate();
+        var mes=fecha.getMonth()+1;
+        var anio=fecha.getFullYear();
+        var partesHora=partes[1].split(":");
+        var hora=partesHora[0];
+        var minutos=partesHora[1];
+
+        var diasSemana = new Array(7);
+        diasSemana[0] = "Domingo";
+        diasSemana[1] = "Lunes";
+        diasSemana[2] = "Martes";
+        diasSemana[3] = "Miercoles";
+        diasSemana[4] = "Jueves";
+        diasSemana[5] = "Viernes";
+        diasSemana[6] = "Sabado";
+        var nombreDia=diasSemana[fecha.getDay()];
+
+
+
+        if(nombreDia=="Jueves"){
+            var d = new Date();
+            if (anio) { d.setFullYear(anio); }
+            d.setDate(1); // Roll to the first day of ...
+            d.setMonth(mes || d.getMonth() + 1); // ... the next month.
+            do { // Roll the days backwards until Monday.
+              d.setDate(d.getDate() - 1);
+            } while (d.getDay() !== 4);
+            var diaAux=d.getDate();
+            var mesAux=d.getMonth()+1;
+            var anioAux=d.getFullYear();
+            if(dia==diaAux && mes==mesAux && anio==anioAux){
+
+                // horas * 60 + minutos
+                const start = 8 * 60 + 0;
+                const end =  12 * 60 + 0;
+                const time = parseInt(hora) * 60 + parseInt(minutos);
+
+                if( time >= start && time < end){
+                    return false;
+                }else{
+                    return true;
+                }
+            }else{
+                return true;
+            }
+        }else{
+            return true;
+        }
+
+
+		}, "La fecha y hora seleccionadas coinciden con la SesiÃ³n del Concejo");
+
+		jQuery.validator.addMethod("numbersonly", function(value, element) {
+	  //return this.optional(element) || /^[a-z]+$/i.test(value);
+	  return this.optional(element) || /[0-9]/.test(value);
+	}, "Este campo solo acepta nÃºmeros");
+
+
+	jQuery.validator.addMethod('filesize', function(value, element, param) {
+    // param = size (en bytes)
+    // element = element to validate (<input>)
+    // value = value of the element (file name)
+    return this.optional(element) || (element.files[0].size <= param)
+	});
+
+
+
+	jQuery.validator.addMethod('positivo', function(value, element, param) {
+    return value>=0;
+	},"El valor ingresado no puede ser negativo");
+
+
+	jQuery.validator.addMethod("ruc",function(value,element){
+		//1721895181001
+	  var digitosFinales=value.substring(10, 13);
+
+	  if(digitosFinales=="001"){
+
+		  var cedula =value.substring(0, 10);
+		  //alert(cedula);
+		  array = cedula.split( "" );
+		  num = array.length;
+		  if ( num == 10 )
+		  {
+		    total = 0;
+		    digito = (array[9]*1);
+		    for( i=0; i < (num-1); i++ )
+		    {
+		      mult = 0;
+		      if ( ( i%2 ) != 0 ) {
+		        total = total + ( array[i] * 1 );
+		      }
+		      else
+		      {
+		        mult = array[i] * 2;
+		        if ( mult > 9 )
+		          total = total + ( mult - 9 );
+		        else
+		          total = total + mult;
+		      }
+		    }
+		    decena = total / 10;
+		    decena = Math.floor( decena );
+		    decena = ( decena + 1 ) * 10;
+		    final = ( decena - total );
+		    if ( ( final == 10 && digito == 0 ) || ( final == digito ) ) {
+		     // alert( "La c\xe9dula ES v\xe1lida!!!" );
+		      return true;
+		    }
+		    else{
+		    	return false;
+		    }
+	    }
+	    else
+	    {
+	      //alert( "La c\xe9dula NO es v\xe1lida!!!" );
+	      return false;
+	    }
+	  }
+	  else
+	  {
+	    //alert("La c\xe9dula no puede tener menos de 10 d\xedgitos");
+	    return false;
+	  }
+
+	}, "Cedula Incorrecta");
+
+
+	jQuery.validator.addMethod("rucfinal",function(value,element){
+        var numero = value;
+        var suma = 0;
+        var residuo = 0;
+        var pri = false;
+        var pub = false;
+        var nat = false;
+        var numeroProvincias = 22;
+        var modulo = 11;
+        var ok=1;
+        for (i=0; i<numero.length && ok==1 ; i++){
+             var n = parseInt(numero.charAt(i));
+        	if (isNaN(n)) ok=0;
+        }
+        if (ok==0){
+        return false;
+        }
+        if (numero.length < 10 ){
+        return false;
+        }
+        provincia = numero.substr(0,2);
+        if (provincia < 1 || provincia > numeroProvincias){
+        return false;
+        }
+            d1  = numero.substr(0,1);
+            d2  = numero.substr(1,1);
+            d3  = numero.substr(2,1);
+            d4  = numero.substr(3,1);
+            d5  = numero.substr(4,1);
+            d6  = numero.substr(5,1);
+            d7  = numero.substr(6,1);
+            d8  = numero.substr(7,1);
+            d9  = numero.substr(8,1);
+            d10 = numero.substr(9,1);
+			if (d3==7 || d3==8){
+            return false;
+            }
+            if (d3 < 6){
+            nat = true;
+            p1 = d1 * 2;  if (p1 >= 10) p1 -= 9;
+            p2 = d2 * 1;  if (p2 >= 10) p2 -= 9;
+            p3 = d3 * 2;  if (p3 >= 10) p3 -= 9;
+            p4 = d4 * 1;  if (p4 >= 10) p4 -= 9;
+            p5 = d5 * 2;  if (p5 >= 10) p5 -= 9;
+            p6 = d6 * 1;  if (p6 >= 10) p6 -= 9;
+            p7 = d7 * 2;  if (p7 >= 10) p7 -= 9;
+            p8 = d8 * 1;  if (p8 >= 10) p8 -= 9;
+            p9 = d9 * 2;  if (p9 >= 10) p9 -= 9;
+            modulo = 10;
+            }else if(d3 == 6){
+            pub = true;
+            p1 = d1 * 3;
+            p2 = d2 * 2;
+            p3 = d3 * 7;
+            p4 = d4 * 6;
+            p5 = d5 * 5;
+            p6 = d6 * 4;
+            p7 = d7 * 3;
+            p8 = d8 * 2;
+            p9 = 0;
+            }else if(d3 == 9) {
+			pri = true;
+			p1 = d1 * 4;
+			p2 = d2 * 3;
+			p3 = d3 * 2;
+			p4 = d4 * 7;
+			p5 = d5 * 6;
+			p6 = d6 * 5;
+			p7 = d7 * 4;
+			p8 = d8 * 3;
+			p9 = d9 * 2;
+            }
+			suma = p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8 + p9;
+			residuo = suma % modulo;
+			digitoVerificador = residuo==0 ? 0: modulo - residuo;
+            if (pub==true){
+            if (digitoVerificador != d9){
+                return false;
+            }
+            if ( numero.substr(9,4) != '0001' ){
+            return false;
+            }
+            }
+            else if(pri == true){
+            if (digitoVerificador != d10){
+            return false;
+            }
+            if ( numero.substr(10,3) != '001' ){
+            return false;
+            }
+            }
+            else if(nat == true){
+            if (digitoVerificador != d10){
+            return false;
+            }
+            if (numero.length >10 && numero.substr(10,3) != '001' ){
+            return false;
+            }
+            }
+            return true;
+			},"NÃºmero de identificaciÃ³n incorrecto");
+		jQuery.validator.addMethod("cedula1",function(value,element){
+
+
+	  if(true){
+
+		  var cedula =value;
+		  //alert(cedula);
+		  array = cedula.split( "" );
+		  num = array.length;
+		  if ( num == 10 )
+		  {
+		    total = 0;
+		    digito = (array[9]*1);
+		    for( i=0; i < (num-1); i++ )
+		    {
+		      mult = 0;
+		      if ( ( i%2 ) != 0 ) {
+		        total = total + ( array[i] * 1 );
+		      }
+		      else
+		      {
+		        mult = array[i] * 2;
+		        if ( mult > 9 )
+		          total = total + ( mult - 9 );
+		        else
+		          total = total + mult;
+		      }
+		    }
+		    decena = total / 10;
+		    decena = Math.floor( decena );
+		    decena = ( decena + 1 ) * 10;
+		    final = ( decena - total );
+		    if ( ( final == 10 && digito == 0 ) || ( final == digito ) ) {
+		     // alert( "La c\xe9dula ES v\xe1lida!!!" );
+		      return true;
+		    }
+		    else{
+		    	return false;
+		    }
+	    }
+	    else
+	    {
+	      //alert( "La c\xe9dula NO es v\xe1lida!!!" );
+	      return false;
+	    }
+	  }
+	  else
+	  {
+	    //alert("La c\xe9dula no puede tener menos de 10 d\xedgitos");
+	    return false;
+	  }
+
+		}, "CÃ©dula incorrecta");
+
+		(function ($) {
+    "use strict";
+
+    // This set of validators requires the File API, so if we'ere in a browser
+    // that isn't sufficiently "HTML5"-y, don't even bother creating them.  It'll
+    // do no good, so we just automatically pass those tests.
+    var is_supported_browser = !!window.File,
+        fileSizeToBytes,
+        formatter = $.validator.format;
+
+    /**
+     * Converts a measure of data size from a given unit to bytes.
+     *
+     * @param number size
+     *   A measure of data size, in the give unit
+     * @param string unit
+     *   A unit of data.  Valid inputs are "B", "KB", "MB", "GB", "TB"
+     *
+     * @return number|bool
+     *   The number of bytes in the above size/unit combo.  If an
+     *   invalid unit is specified, false is returned
+     */
+    fileSizeToBytes = (function () {
+
+        var units = ["B", "KB", "MB", "GB", "TB"];
+
+        return function (size, unit) {
+
+            var index_of_unit = units.indexOf(unit),
+                coverted_size;
+
+            if (index_of_unit === -1) {
+
+                coverted_size = false;
+
+            } else {
+
+                while (index_of_unit > 0) {
+                    size *= 1024;
+                    index_of_unit -= 1;
+                }
+
+                coverted_size = size;
+            }
+
+            return coverted_size;
+        };
+    }());
+
+    /**
+     * Validates that an uploaded file is of a given file type, tested
+     * by it's reported mime string.
+     *
+     * @param obj params
+     *   An optional set of configuration parmeters.  Supported options are:
+     *    "types" : array (default ["text"])
+     *      An array of file types.  This types are loosely checked, so including
+     *      "text" in this array of types will cause "text/plain" and "text/css"
+     *      to both be excepted.  If the selected file matches any of the strings
+     *      in this array, validation passes.
+     */
+    $.validator.addMethod(
+        "fileType",
+        function (value, element, params) {
+
+            var files,
+                types = params.types || ["text"],
+                is_valid = false;
+
+            if (!is_supported_browser || this.optional(element)) {
+
+                is_valid = true;
+
+            } else {
+
+                files = element.files;
+
+                if (files.length < 1) {
+
+                    is_valid = false;
+
+                } else {
+
+                    $.each(types, function (key, value) {
+                        is_valid = is_valid || files[0].type.indexOf(value) !== -1;
+                    });
+
+                }
+            }
+
+            return is_valid;
+        },
+        function (params, element) {
+            return formatter(
+                "Formato de archivo incorrecto: {0}.",
+                params.types.join(",")
+            );
+        }
+    );
+
+    /**
+     * Validates that a file selected for upload is at least a given
+     * file size.
+     *
+     * @param obj params
+     *   An optional set of configuration parameters.  Supported options are:
+     *     "unit" : string (default "KB")
+     *       The unit of measure of the file size limit is in.  Valid inputs
+     *       are "B", "KB", "MB" and "GB"
+     *     "size" : number (default 100)
+     *        The minimum size of the file, in the above units, that the file
+     *        must be, to be accepted as "valid"
+     */
+    $.validator.addMethod(
+        "minFileSize",
+        function (value, element, params) {
+
+            var files,
+                unit = params.unit || "KB",
+                size = params.size || 100,
+                min_file_size = fileSizeToBytes(size, unit),
+                is_valid = false;
+
+            if (!is_supported_browser || this.optional(element)) {
+
+                is_valid = true;
+
+            } else {
+
+                files = element.files;
+
+                if (files.length < 1) {
+
+                    is_valid = false;
+
+                } else {
+
+                    is_valid = files[0].size >= min_file_size;
+
+                }
+            }
+
+            return is_valid;
+        },
+        function (params, element) {
+            return formatter(
+                "File must be at least {0}{1} large.",
+                [params.size || 100, params.unit || "KB"]
+            );
+        }
+    );
+
+    /**
+     * Validates that a file selected for upload is no loarger than a given
+     * file size.
+     *
+     * @param obj params
+     *   An optional set of configuration parameters.  Supported options are:
+     *     "unit" : string (default "KB")
+     *       The unit of measure of the file size limit is in.  Valid inputs
+     *       are "B", "KB", "MB" and "GB"
+     *     "size" : number (default 100)
+     *        The maximum size of the file, in the above units, that the file
+     *        can be to be accepted as "valid"
+     */
+    $.validator.addMethod(
+        "maxFileSize",
+        function (value, element, params) {
+
+            var files,
+                unit = params.unit || "KB",
+                size = params.size || 100,
+                max_file_size = fileSizeToBytes(size, unit),
+                is_valid = false;
+
+            if (!is_supported_browser || this.optional(element)) {
+
+                is_valid = true;
+
+            } else {
+
+                files = element.files;
+
+                if (files.length < 1) {
+
+                    is_valid = false;
+
+                } else {
+
+                    is_valid = files[0].size <= max_file_size;
+
+                }
+            }
+
+            return is_valid;
+        },
+        function (params, element) {
+            return formatter(
+                "El archivo no debe pesar mÃ¡s de {0}{1}.",
+                [params.size || 100, params.unit || "KB"]
+            );
+        }
+    );
+
+}(jQuery));
+        $(document).ready(function() {
+            const form = document.getElementById('formDueno');
+            let duenos = JSON.parse(localStorage.getItem('duenos')) || [];
+            let editingId = null;
+
+            const tabla = $('#tablaDuenos').DataTable({
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+                }
+            });
+
+            cargarTabla();
+
+            // Initialize form validation
+            $("#formDueno").validate({
+                rules: {
+                    nombreCompleto: {
+                        required: true,
+                        letras: true
+                    },
+                    cedula: {
+                        required: true,
+                        numbersonly: true,
+                        minlength: 10,
+                        maxlength: 10,
+                        cedula1: true //Your cedula validation method
+                    },
+                    telefono: {
+                        required: true,
+                        numbersonly: true,
+                        minlength: 10,
+                        maxlength: 10
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    direccion: {
+                        required: true
+                    },
+                    archivo: {
+                        required: true,
+                        fileType: {
+                            types: ["jpg", "jpeg", "png", "pdf"]
+                        },
+                        maxFileSize: {
+                            size: 2,
+                            unit: "MB"
+                        }
+                    }
+                },
+                messages: {
+                    nombreCompleto: {
+                        required: "Por favor ingrese el nombre completo.",
+                        letras: "El nombre solo debe contener letras."
+                    },
+                    cedula: {
+                        required: "Por favor ingrese el número de cédula.",
+                        numbersonly: "La cédula debe contener solo números.",
+                        minlength: "La cédula debe tener 10 dígitos.",
+                        maxlength: "La cédula debe tener 10 dígitos.",
+                        cedula1: "Por favor, ingrese una cédula válida."
+                    },
+                    telefono: {
+                        required: "Por favor ingrese el número de teléfono.",
+                        numbersonly: "El teléfono debe contener solo números.",
+                        minlength: "El teléfono debe tener 10 dígitos.",
+                        maxlength: "El teléfono debe tener 10 dígitos."
+                    },
+                    email: {
+                        required: "Por favor ingrese el correo electrónico.",
+                        email: "Por favor ingrese un correo electrónico válido."
+                    },
+                    direccion: {
+                        required: "Por favor ingrese la dirección."
+                    },
+                    archivo: {
+                        required: "Por favor, seleccione un archivo.",
+                        fileType: "Por favor, seleccione un archivo con formato JPG, JPEG, PNG o PDF.",
+                        maxFileSize: "El archivo no debe superar los 2MB."
+                    }
+                },
+                submitHandler: function(form) {
+                    // This function will be called when the form is valid and submitted
+                    const nombre = $('#nombreCompleto').val();
+                    const cedula = $('#cedula').val();
+                    const telefono = $('#telefono').val();
+                    const email = $('#email').val();
+                    const direccion = $('#direccion').val();
+                    const archivo = $('#archivo').val();
+
+                    if (editingId) {
+                        duenos = duenos.map(dueno => {
+                            if (dueno.id === editingId) {
+                                return { id: editingId, nombre, cedula, telefono, email, direccion, archivo };
+                            }
+                            return dueno;
+                        });
+                        Toastify({
+                            text: "Dueño actualizado exitosamente",
+                            duration: 3000,
+                            gravity: "top",
+                            position: "center",
+                            style: {background: "linear-gradient(to right, #00b09b, #96c93d)"}
+                        }).showToast();
+                    } else {
+                        const id = Date.now();
+                        duenos.push({ id, nombre, cedula, telefono, email, direccion, archivo });
+                        Toastify({
+                            text: "Dueño registrado exitosamente",
+                            duration: 3000,
+                            gravity: "top",
+                            position: "center",
+                            style: {background: "linear-gradient(to right, #00b09b, #96c93d)"}
+                        }).showToast();
+                    }
+
+                    localStorage.setItem('duenos', JSON.stringify(duenos));
+                    form.reset();
+                    editingId = null;
+                    $('#btnCancelar').hide();
+                    cargarTabla();
+                }
+            });
+
+            $('#btnCancelar').click(function() {
+                form.reset();
+                editingId = null;
+                $('#btnCancelar').hide();
+                // Reset validation errors
+                $("#formDueno").validate().resetForm();
+                $(".error").removeClass("error");
+            });
+
+            function cargarTabla() {
+                tabla.clear().draw();
+                duenos.forEach(dueno => {
+                    tabla.row.add([
+                        dueno.id,
+                        dueno.nombre,
+                        dueno.cedula,
+                        dueno.telefono,
+                        dueno.email,
+                        dueno.direccion,
+                        `<button class='btn btn-warning btn-sm editar-btn' data-id='${dueno.id}'>Editar</button>
+                         <button class='btn btn-danger btn-sm eliminar-btn' data-id='${dueno.id}'>Eliminar</button>`
+                    ]).draw(false);
+                });
+            }
+
+            $('#tablaDuenos').on('click', '.editar-btn', function() {
+                editingId = parseInt($(this).data('id'));
+                const dueno = duenos.find(d => d.id === editingId);
+                if (dueno) {
+                    $('#nombreCompleto').val(dueno.nombre);
+                    $('#cedula').val(dueno.cedula);
+                    $('#telefono').val(dueno.telefono);
+                    $('#email').val(dueno.email);
+                    $('#direccion').val(dueno.direccion);
+                     $('#archivo').val(dueno.archivo);
+                    $('#btnCancelar').show();
+                    // Clear previous validation errors
+                    $("#formDueno").validate().resetForm();
+                    $(".error").removeClass("error");
+                }
+            });
+
+            $('#tablaDuenos').on('click', '.eliminar-btn', function() {
+                const id = parseInt($(this).data('id'));
+                duenos = duenos.filter(d => d.id !== id);
+                localStorage.setItem('duenos', JSON.stringify(duenos));
+                cargarTabla();
+                Toastify({
+                    text: "Dueño eliminado exitosamente",
+                    duration: 3000,
+                    gravity: "top",
+                    position: "center",
+                    style: {background: "linear-gradient(to right, #ff0000, #ffcc00)"}
+                }).showToast();
+            });
+        });
+    </script>
+</body>
+</html>

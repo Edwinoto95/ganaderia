@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión Ganadera</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2b5a30;    /* Verde oscuro - Representa naturaleza y crecimiento */
+            --secondary-color: #8b4513;   /* Marrón - Representa tierra y estabilidad */
+            --accent-color: #f0a500;      /* Dorado - Representa calidad y prestigio */
+            --background-color: #f5f3e9;  /* Beige claro - Representa naturaleza y limpieza */
+            --text-color: #333333;        /* Gris oscuro - Mejor legibilidad */
+            --success-color: #568c63;     /* Verde medio - Éxito y progreso */
+            --danger-color: #a44141;      /* Rojo tierra - Alertas y errores */
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .navbar {
+            background-color: var(--primary-color);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: 600;
+            font-size: 1.4rem;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.9) !important;
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color) !important;
+            transform: translateY(-2px);
+        }
+
+        .hero-section {
+            background: linear-gradient(rgba(43, 90, 48, 0.9), rgba(43, 90, 48, 0.9)),
+                        url('/api/placeholder/1920/1080') center/cover;
+            padding: 8rem 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero-text {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            height: 100%;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--primary-color);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+        }
+
+        .feature-title {
+            color: var(--text-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .feature-text {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .action-button {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(240, 165, 0, 0.3);
+        }
+
+        .action-button:hover {
+            background-color: #d89400;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(240, 165, 0, 0.4);
+        }
+
+        .logout-btn {
+            background-color: transparent;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: rgba(255,255,255,0.1);
+            border-color: white;
+        }
+
+        .stats-section {
+            background-color: white;
+            padding: 4rem 0;
+            margin: 4rem 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .testimonials-section {
+            padding: 4rem 0;
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .testimonial-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 1rem;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-title {
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-text {
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+        }
+
+        .social-links a {
+            color: white;
+            margin: 0 1rem;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            opacity: 0.8;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+            opacity: 1;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 3rem;
+            padding-top: 2rem;
+        }
+
+        /* Nuevos elementos añadidos */
+        .quick-action-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .quick-action-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .benefits-section {
+            padding: 4rem 0;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .benefit-icon {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-right: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-cow me-2"></i>
+                Sistema Ganadero 
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home me-1"></i> Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Registro_Dueno.html">
+                            <i class="fas fa-user me-1"></i> Propietarios
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Registro_Hacienda.html">
+                            <i class="fas fa-farm me-1"></i> Haciendas
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Registro_Vaca.html">
+                            <i class="fas fa-cow me-1"></i> Ganado
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Reportes.html">
+                            <i class="fas fa-chart-line me-1"></i> Reportes
+                        </a>
+                    </li>
+                    <form action="/logout" method="POST">
+                        
+                        <button type="submit" class="logout-btn"
+                            style="background-color: red; color: white; border: none; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 5px; transition: background-color 0.3s ease;">Cerrar
+                            sesión</button>
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container mt-5">
+        <h1 class="mb-4">Registro de Vaca</h1>
+        <div class="card">
+            <div class="card-body">
+                <form id="formVaca">
+                    <input type="hidden" id="idVaca">
+                    <div class="mb-3">
+                        <label for="nombreVaca" class="form-label">Nombre de la Vaca</label>
+                        <input type="text" class="form-control" id="nombreVaca">
+                        <div class="text-danger" style="display: none;" id="errorNombreVaca">
+                            Por favor ingrese el nombre de la vaca.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="peso" class="form-label">Peso (kg)</label>
+                        <input type="number" class="form-control" id="peso">
+                        <div class="text-danger" style="display: none;" id="errorPeso">
+                            El peso debe estar entre 100 y 1500 kg.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="altura" class="form-label">Altura (cm)</label>
+                        <input type="number" class="form-control" id="altura">
+                        <div class="text-danger" style="display: none;" id="errorAltura">
+                            La altura debe estar entre 100 y 165 cm.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edad" class="form-label">Edad (años)</label>
+                        <input type="number" class="form-control" id="edad">
+                        <div class="text-danger" style="display: none;" id="errorEdad">
+                            La edad debe estar entre 0 y 30 años.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                        <input type="date" class="form-control" id="fechaNacimiento">
+                        <div class="text-danger" style="display: none;" id="errorFechaNacimiento">
+                            La fecha no puede ser futura.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="raza" class="form-label">Raza</label>
+                        <select class="form-select" id="raza">
+                            <option value="">Seleccione una raza</option>
+                            <option value="Holstein">Ganado autóctono</option>
+                            <option value="Jersey">Jersey</option>
+                            <option value="Angus">Holstein</option>
+                            <option value="Brahman">Brahman</option>
+                            <option value="Hereford">Hereford</option>
+                        </select>
+                        <div class="text-danger" style="display: none;" id="errorRaza">
+                            Por favor seleccione una raza.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="hacienda" class="form-label">Hacienda</label>
+                        <select class="form-select" id="hacienda">
+                            <option value="">Seleccione una hacienda</option>
+                        </select>
+                        <div class="text-danger" style="display: none;" id="errorHacienda">
+                            Por favor seleccione una hacienda.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="imagen" class="form-label">Imagen de la Vaca</label>
+                        <input type="file" class="form-control" id="imagen" accept="image/*">
+                        <div class="text-danger" style="display: none;" id="errorImagen">
+                            Por favor seleccione una imagen.
+                        </div>
+                    </div>
+                    <div id="previewContainer" class="mb-3 d-none">
+                        <img id="preview" class="img-fluid" style="max-height: 200px;">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-secondary" id="btnCancelar">Cancelar</button>
+                    
+                </form>
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-body">
+                <h3>Vacas Registradas</h3>
+                <table id="tablaVacas" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Peso</th>
+                            <th>Altura</th>
+                            <th>Edad</th>
+                            <th>Raza</th>
+                            
+                            <th>Hacienda</th>
+                            <th>Imagen</th>
+                            <th>Acciones</th>
+                            <!-- Nueva columna para los botones -->
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.12.0/toastify.js"></script>
+
+
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h4 class="footer-title">Sobre Sistema Ganadero</h4>
+                    <p class="footer-text">
+                        Sistema líder en gestión ganadera, diseñado para optimizar 
+                        y modernizar las operaciones del sector agropecuario.
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <h4 class="footer-title">Enlaces Rápidos</h4>
+                    <ul class="list-unstyled footer-text">
+                        <li><a href="#" class="text-white">Inicio</a></li>
+                        <li><a href="#" class="text-white">Características</a></li>
+                        <li><a href="#" class="text-white">Soporte</a></li>
+                        <li><a href="#" class="text-white">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4 class="footer-title">Contacto</h4>
+                    <p class="footer-text">
+                        <i class="fas fa-phone me-2"></i> +123 456 7890<br>
+                        <i class="fas fa-envelope me-2"></i> info@ganasyspro.com<br>
+                        <i class="fas fa-map-marker-alt me-2"></i> Av. Principal #123
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom text-center">
+                <div class="social-links mb-3">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <p class="mb-0">© 2025 GanaSys Pro. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        $(document).ready(function () {
+            const form = document.getElementById('formVaca');
+            const selectHacienda = document.getElementById('hacienda');
+            const inputImagen = document.getElementById('imagen');
+            const preview = document.getElementById('preview');
+            const previewContainer = document.getElementById('previewContainer');
+            const btnCancelar = document.getElementById('btnCancelar');
+            let vacas = JSON.parse(localStorage.getItem('vacas')) || [];
+            const haciendas = JSON.parse(localStorage.getItem('haciendas')) || [];
+            let editingVacaId = null;
+
+            // Validation functions
+            function validateForm() {
+                let isValid = true;
+
+                // Nombre Vaca validation
+                const nombreVaca = document.getElementById('nombreVaca').value.trim();
+                if (nombreVaca === '') {
+                    document.getElementById('errorNombreVaca').style.display = 'block';
+                    isValid = false;
+                } else {
+                    document.getElementById('errorNombreVaca').style.display = 'none';
+                }
+
+                // Peso validation
+                const peso = parseFloat(document.getElementById('peso').value);
+                if (isNaN(peso) || peso < 100 || peso > 1500) {
+                    document.getElementById('errorPeso').style.display = 'block';
+                    isValid = false;
+                } else {
+                    document.getElementById('errorPeso').style.display = 'none';
+                }
+
+                // Altura validation
+                const altura = parseFloat(document.getElementById('altura').value);
+                if (isNaN(altura) || altura < 100 || altura > 165) {
+                    document.getElementById('errorAltura').style.display = 'block';
+                    isValid = false;
+                } else {
+                    document.getElementById('errorAltura').style.display = 'none';
+                }
+
+                // Edad validation
+                const edad = parseFloat(document.getElementById('edad').value);
+                if (isNaN(edad) || edad < 0 || edad > 30) { // Ensure age is not negative
+                    document.getElementById('errorEdad').style.display = 'block';
+                    isValid = false;
+                } else {
+                    document.getElementById('errorEdad').style.display = 'none';
+                }
+
+                // Fecha Nacimiento validation
+                const fechaNacimiento = document.getElementById('fechaNacimiento').value;
+                if (new Date(fechaNacimiento) > new Date()) {
+                    document.getElementById('errorFechaNacimiento').style.display = 'block';
+                    isValid = false;
+                } else {
+                    document.getElementById('errorFechaNacimiento').style.display = 'none';
+                }
+
+                // Raza validation
+                const raza = document.getElementById('raza').value;
+                if (raza === '') {
+                    document.getElementById('errorRaza').style.display = 'block';
+                    isValid = false;
+                } else {
+                    document.getElementById('errorRaza').style.display = 'none';
+                }
+
+                // Hacienda validation
+                const hacienda = document.getElementById('hacienda').value;
+                if (hacienda === '') {
+                    document.getElementById('errorHacienda').style.display = 'block';
+                    isValid = false;
+                } else {
+                    document.getElementById('errorHacienda').style.display = 'none';
+                }
+
+                // Imagen validation (optional, depending on your requirements)
+                // Add your image validation logic here if needed
+
+                return isValid;
+            }
+            // Form submission
+            form.addEventListener('submit', function (e) {
+                e.preventDefault(); // Prevent the form from submitting the traditional way
+                console.log("Form submission attempted."); // Debugging
+
+                if (validateForm()) {
+                    console.log("Form validation passed."); // Debugging
+
+                    const idVaca = document.getElementById('idVaca').value;
+                    const nombreVaca = document.getElementById('nombreVaca').value;
+                    const peso = parseFloat(document.getElementById('peso').value);
+                    const altura = parseFloat(document.getElementById('altura').value);
+                    const edad = parseFloat(document.getElementById('edad').value);
+                    const fechaNacimiento = document.getElementById('fechaNacimiento').value;
+                    const raza = document.getElementById('raza').value;
+                    const haciendaId = document.getElementById('hacienda').value;
+                    const hacienda = haciendas.find(h => h.id == haciendaId);
+                    const imagen = preview.src;
+
+                    const estado = calcularEstado(peso, altura);
+
+                    let newVaca;
+
+                    if (editingVacaId) {
+                        // Update existing vaca
+                        vacas = vacas.map(v => {
+                            if (v.id == editingVacaId) {
+                                return {
+                                    ...v,
+                                    nombre: nombreVaca,
+                                    peso: peso,
+                                    altura: altura,
+                                    edad: edad,
+                                    fechaNacimiento: fechaNacimiento,
+                                    raza: raza,
+                                    idHacienda: haciendaId,
+                                    nombreHacienda: hacienda ? hacienda.nombre : 'Unknown',
+                                    imagen: imagen,
+                                    
+                                };
+                            }
+                            return v;
+                        });
+                        editingVacaId = null;
+                    } else {
+                        // Create new vaca
+                         newVaca = {
+                            id: vacas.length > 0 ? vacas[vacas.length - 1].id + 1 : 1,
+                            nombre: nombreVaca,
+                            peso: peso,
+                            altura: altura,
+                            edad: edad,
+                            fechaNacimiento: fechaNacimiento,
+                            raza: raza,
+                            idHacienda: haciendaId,
+                            nombreHacienda: hacienda ? hacienda.nombre : 'Unknown',
+                            imagen: imagen,
+                            
+                        };
+                        vacas.push(newVaca);
+                         console.log("New vaca created:", newVaca); // Debugging
+                    }
+
+                    localStorage.setItem('vacas', JSON.stringify(vacas));
+                    console.log("Vacas saved to localStorage:", vacas); // Debugging
+
+                    tabla.clear().rows.add(vacas).draw();
+                    console.log("DataTable redrawn."); // Debugging
+                    clearForm();
+                    Toastify({
+                        text: "Vaca guardada exitosamente!",
+                        duration: 3000,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                        stopOnFocus: true, // Prevents dismissing of toast on hover
+                    }).showToast();
+                } else {
+                    console.log("Form validation failed."); // Debugging
+                }
+            });
+
+            // Inicializa DataTables
+            const tabla = $('#tablaVacas').DataTable({
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+                },
+                data: vacas, // Usa los datos directamente aquí
+                columns: [
+                    { data: 'id' },
+                    { data: 'nombre' },
+                    { data: 'peso', render: function (data) { return data + ' kg'; } },
+                    { data: 'altura', render: function (data) { return data + ' cm'; } },
+                    { data: 'edad', render: function (data) { return data + ' años'; } },
+                    { data: 'raza' },
+                    
+                    { data: 'nombreHacienda' },
+                    {
+                        data: 'imagen',
+                        render: function (data) {
+                            return `<img src="${data}" alt="Vaca" style="height: 50px;">`;
+                        }
+                    },
+                    {
+                        data: null,
+                        render: function (data, type, row) {
+                            return `<button class="btn btn-sm btn-primary btnEditar" data-id="${row.id}">Editar</button>
+                                    <button class="btn btn-sm btn-danger btnEliminar" data-id="${row.id}">Eliminar</button>`;
+                        }
+                    }
+                ],
+                rowCallback: function (row, data) {
+                    // Almacena los datos de la vaca en el elemento TR para facilitar el acceso
+                    $(row).data('vaca', data);
+                }
+            });
+
+            // Cargar haciendas en el select
+            haciendas.forEach(hacienda => {
+                const option = new Option(hacienda.nombre, hacienda.id);
+                selectHacienda.add(option);
+            });
+
+            // Preview de imagen
+            inputImagen.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        preview.src = e.target.result;
+                        previewContainer.classList.remove('d-none');
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    preview.src = '';
+                    previewContainer.classList.add('d-none');
+                }
+            });
+
+            // Validar fecha de nacimiento
+            document.getElementById('fechaNacimiento').max = new Date().toISOString().split('T')[0];
+
+            // Función para calcular el estado de la vaca
+            function calcularEstado(peso, altura) {
+                const imc = peso / (altura * altura / 10000);
+                if (imc < 18.5) return 'Flaca';
+                if (imc > 25) return 'Sobrepeso';
+                return 'Normal';
+            }
+
+            // Manejadores de eventos para los botones de Editar y Eliminar
+            $('#tablaVacas tbody').on('click', '.btnEditar', function () {
+                const vacaId = $(this).data('id');
+                editingVacaId = vacaId;
+                const vaca = vacas.find(v => v.id == vacaId);
+                fillForm(vaca);
+            });
+            $('#tablaVacas tbody').on('click', '.btnEliminar', function () {
+                const vacaId = $(this).data('id');
+                vacas = vacas.filter(v => v.id != vacaId);
+                localStorage.setItem('vacas', JSON.stringify(vacas));
+                tabla.clear().rows.add(vacas).draw();
+            });
+
+
+            // Función para llenar el formulario con los datos de la vaca a editar
+            function fillForm(vaca) {
+                document.getElementById('idVaca').value = vaca.id;
+                document.getElementById('nombreVaca').value = vaca.nombre;
+                document.getElementById('peso').value = vaca.peso;
+                document.getElementById('altura').value = vaca.altura;
+                document.getElementById('edad').value = vaca.edad;
+                document.getElementById('fechaNacimiento').value = vaca.fechaNacimiento;
+                document.getElementById('raza').value = vaca.raza;
+                document.getElementById('hacienda').value = vaca.idHacienda;
+
+                if (vaca.imagen) {
+                    preview.src = vaca.imagen;
+                    previewContainer.classList.remove('d-none');
+                } else {
+                    preview.src = '';
+                    previewContainer.classList.add('d-none');
+                }
+            }
+
+            // Función para limpiar el formulario
+            function clearForm() {
+                document.getElementById('idVaca').value = '';
+                document.getElementById('nombreVaca').value = '';
+                document.getElementById('peso').value = '';
+                document.getElementById('altura').value = '';
+                document.getElementById('edad').value = '';
+                document.getElementById('fechaNacimiento').value = '';
+                document.getElementById('raza').value = '';
+                document.getElementById('hacienda').value = '';
+                document.getElementById('imagen').value = ''; // Clear the selected file
+                preview.src = '';
+                previewContainer.classList.add('d-none');
+            }
+        });
+    </script>
+</body>
+
+</html>
